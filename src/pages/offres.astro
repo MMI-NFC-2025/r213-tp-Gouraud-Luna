@@ -3,9 +3,78 @@ import '../styles/global.css'
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/hero.astro';
 import OCard from '../components/offreCards.astro';
+import OffreCards from '../components/offreCards.astro';
+const offres = [
+    {
+        "adresse": "2821 Lake Sevilla, Palm Harbor, TX",
+        "favori": true,
+        "id": "64l3n8nar836i5j",
+        "nbChambres": 4,
+        "nbSdb": 2,
+        "nomMaison": "Beverly Springfield",
+        "prix": 2700,
+        "surface": 45,
+        "imgUrl": "image1.png"
+    },
+    {
+        "adresse": "2699 Green Valley, Highland Lake",
+        "favori": true,
+        "id": "lo831zeg10hpm9y",
+        "nbChambres": 4,
+        "nbSdb": 2,
+        "nomMaison": "Palm Harbor",
+        "prix": 2095,
+        "surface": 42,
+        "imgUrl": "image2.png"
+    },
+    {
+        "adresse": "909 Woodland St, Michigan, IN",
+        "favori": false,
+        "id": "s1zuhj19x8eb242",
+        "nbChambres": 4,
+        "nbSdb": 3,
+        "nomMaison": "Faulkner Ave",
+        "prix": 4550,
+        "surface": 80,
+        "imgUrl": "image3.png"
+    }
+]
 ---
 
 <Layout titre="Offres">
     <Hero H1="Offres" />
-    <OCard/>
+    <div>
+    <div>
+        { offres.map((offre) => 
+        <div class="offre" data-favori={offre.favori.toString()}>
+            <OffreCards nomMaison={offre.nomMaison}/>
+        </div>
+            
+            )
+        }
+    </div>
+    <button id="favori-button" class="bg-slate-600 rounded-lg text-white p-2">Afficher les favoris</button>
+
+</div>
+<script>
+    const button = document.getElementById('favori-button');
+    let showOnlyFavorites = false;
+    
+    button?.addEventListener('click', () => {
+        showOnlyFavorites = !showOnlyFavorites;
+        const offres = document.querySelectorAll('.offre');
+        
+        offres.forEach(offre => {
+            const isFavori = offre.dataset.favori === 'true';
+            
+            if (showOnlyFavorites) {
+                offre.style.display = isFavori ? 'block' : 'none';
+                button.textContent = 'Afficher tout';
+            } else {
+                offre.style.display = 'block';
+                button.textContent = 'Afficher les favoris';
+            }
+        });
+    });
+</script>
 </Layout>
