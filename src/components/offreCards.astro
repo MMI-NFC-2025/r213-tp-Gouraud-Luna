@@ -4,7 +4,7 @@ const cardBaseClass = "offre-card rounded-lg shadow-md overflow-hidden h-full fl
 const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white border-transparent";
 ---
 
-<div class="bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col">
+<div class="offreCards bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col" data-favori={favori}>
     <!-- Image -->
     <div class="w-full h-48 bg-gradient-to-t from-blue-400 to-blue-600 flex items-center justify-center">
     </div>
@@ -42,3 +42,18 @@ const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white borde
         </div>
     </div>
 </div>
+
+<script>
+    //@ts-nocheck
+    const cards = document.querySelectorAll('.offreCards');
+    cards.forEach((card) => {
+        card.addEventListener('click', () => {
+            const isFavori = card.dataset.favori === 'true';
+            card.dataset.favori = isFavori ? 'false' : 'true';
+            console.log(card.dataset.favori);
+            card.classList.toggle('bg-yellow-100');
+            card.classList.toggle('bg-white');
+        });
+    });
+    
+</script>
