@@ -2,7 +2,6 @@
 import '../styles/global.css'
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/hero.astro';
-import OCard from '../components/offreCards.astro';
 import OffreCards from '../components/offreCards.astro';
 const offres = [
     {
@@ -43,19 +42,25 @@ const offres = [
 
 <Layout titre="Offres">
     <Hero H1="Offres" />
-    <div>
-    <div>
-        { offres.map((offre) => 
-        <div class="offre" data-favori={offre.favori.toString()}>
-            <OffreCards nomMaison={offre.nomMaison}/>
+    <div class="p-8 bg-gray-50 min-h-screen">
+        <button id="favori-button" class="mb-8 bg-gray-500 rounded-lg text-white px-6 py-3 font-semibold transition-colors">Afficher les favoris</button>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            { offres.map((offre) => 
+            <div class="offre" data-favori={offre.favori.toString()}>
+                <OffreCards 
+                    nomMaison={offre.nomMaison}
+                    adresse={offre.adresse}
+                    nbChambres={offre.nbChambres}
+                    nbSdb={offre.nbSdb}
+                    surface={offre.surface}
+                    prix={offre.prix}
+                    favori={offre.favori}
+                />
+            </div>
+                )
+            }
         </div>
-            
-            )
-        }
     </div>
-    <button id="favori-button" class="bg-slate-600 rounded-lg text-white p-2">Afficher les favoris</button>
-
-</div>
 <script>
     const button = document.getElementById('favori-button');
     let showOnlyFavorites = false;
