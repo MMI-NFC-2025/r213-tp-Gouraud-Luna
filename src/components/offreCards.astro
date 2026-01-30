@@ -10,7 +10,7 @@ import PbImage from "../components/PbImage.astro";
 <div class={`offreCards ${cardBaseClass} ${favoriClass}`} data-favori={favori ? "true" : "false"}>
     <!-- Image -->
     <div class="w-full h-48 bg-gradient-to-t from-blue-400 to-blue-600 flex items-center justify-center">
-        <PbImage record={offre} recordImage={offre.Images} />
+        <PbImage record={offre} recordImage={offre.Images} width={1000} height={600}/>
     </div>
     
     <!-- Contenu -->

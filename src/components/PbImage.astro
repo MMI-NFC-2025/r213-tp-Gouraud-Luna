@@ -2,7 +2,7 @@
 import { getImageUrl } from '../backend.mjs';
 import { Image } from "astro:assets";
 
-const { record, recordImage } = Astro.props;
+const { record, recordImage, width, height } = Astro.props;
 
 const imageURL = await getImageUrl(record, recordImage);
 ---
@@ -11,8 +11,8 @@ const imageURL = await getImageUrl(record, recordImage);
     <Image
         src={imageURL}
         alt={record.Nom || 'Image'}
-        width={1000}
-        height={562}
+        width={width}
+        height={height}
         class="w-full h-full object-cover"
         sizes="(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw"
         densities={[1, 2]}
