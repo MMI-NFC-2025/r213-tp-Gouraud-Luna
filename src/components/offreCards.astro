@@ -4,11 +4,13 @@ const offre = Astro.props.offre;
 const cardBaseClass = "offre-card rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-colors border";
 const favori = Boolean(offre?.favori);
 const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white border-transparent";
+import PbImage from "../components/PbImage.astro";
 ---
 
 <div class={`offreCards ${cardBaseClass} ${favoriClass}`} data-favori={favori ? "true" : "false"}>
     <!-- Image -->
     <div class="w-full h-48 bg-gradient-to-t from-blue-400 to-blue-600 flex items-center justify-center">
+        <PbImage record={offre} recordImage={offre.Images} />
     </div>
     
     <!-- Contenu -->
@@ -39,7 +41,7 @@ const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white borde
         
         <!-- Prix -->
         <div class="border-t pt-4 mt-auto">
-            <p class="text-3xl font-bold text-blue-600">{offre.Prix}</p>
+            <p class="text-3xl font-bold text-blue-600">{offre.Prix} €</p>
             <p class="text-xs text-gray-500 mt-1">par mois</p>
         </div>
     </div>

@@ -13,5 +13,5 @@ export async function getOffres() {
 }
 
 export async function getImageUrl(record, recordImage) {
-    return pb.files.getURL(record, recordImage);
+    return db.files.getURL(record, recordImage);
 }
