@@ -1,10 +1,12 @@
 ---
-const { nomMaison, adresse, nbChambres, nbSdb, surface, prix, imgUrl, favori } = Astro.props;
+const offre = Astro.props.offre;
+
 const cardBaseClass = "offre-card rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-colors border";
+const favori = Boolean(offre?.favori);
 const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white border-transparent";
 ---
 
-<div class="offreCards bg-white rounded-lg shadow-md overflow-hidden h-full flex flex-col" data-favori={favori}>
+<div class={`offreCards ${cardBaseClass} ${favoriClass}`} data-favori={favori ? "true" : "false"}>
     <!-- Image -->
     <div class="w-full h-48 bg-gradient-to-t from-blue-400 to-blue-600 flex items-center justify-center">
     </div>
@@ -12,32 +14,32 @@ const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white borde
     <!-- Contenu -->
     <div class="p-5 flex flex-col flex-grow">
         <!-- Titre -->
-        <h3 class="text-xl font-bold text-gray-800 mb-2">{nomMaison}</h3>
+        <h3 class="text-xl font-bold text-gray-800 mb-2">{offre.Nom}</h3>
         
         <!-- Adresse -->
         <p class="text-sm text-gray-600 mb-4 flex items-center">
-            {adresse}
+            {offre.adresse}
         </p>
         
         <!-- Infos -->
         <div class="grid grid-cols-3 gap-3 mb-4 text-center py-3 bg-gray-50 rounded">
             <div>
-                <p class="text-2xl font-bold text-blue-600">{nbChambres}</p>
+                <p class="text-2xl font-bold text-blue-600">{offre.nb_chambre}</p>
                 <p class="text-xs text-gray-600">Chambres</p>
             </div>
             <div>
-                <p class="text-2xl font-bold text-blue-600">{nbSdb}</p>
+                <p class="text-2xl font-bold text-blue-600">{offre.nb_salle_de_bain}</p>
                 <p class="text-xs text-gray-600">SDB</p>
             </div>
             <div>
-                <p class="text-2xl font-bold text-blue-600">{surface}</p>
+                <p class="text-2xl font-bold text-blue-600">{offre.Superficie}</p>
                 <p class="text-xs text-gray-600">m²</p>
             </div>
         </div>
         
         <!-- Prix -->
         <div class="border-t pt-4 mt-auto">
-            <p class="text-3xl font-bold text-blue-600">${prix}</p>
+            <p class="text-3xl font-bold text-blue-600">{offre.Prix}</p>
             <p class="text-xs text-gray-500 mt-1">par mois</p>
         </div>
     </div>
@@ -49,10 +51,18 @@ const favoriClass = favori ? "bg-yellow-100 border-yellow-400" : "bg-white borde
     cards.forEach((card) => {
         card.addEventListener('click', () => {
             const isFavori = card.dataset.favori === 'true';
-            card.dataset.favori = isFavori ? 'false' : 'true';
-            console.log(card.dataset.favori);
+            const nextFavori = isFavori ? 'false' : 'true';
+            card.dataset.favori = nextFavori;
+
+            const wrapper = card.closest('.offre');
+            if (wrapper) {
+                wrapper.dataset.favori = nextFavori;
+            }
+
             card.classList.toggle('bg-yellow-100');
             card.classList.toggle('bg-white');
+            card.classList.toggle('border-yellow-400');
+            card.classList.toggle('border-transparent');
         });
     });
     
