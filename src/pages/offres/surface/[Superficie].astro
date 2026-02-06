@@ -1,0 +1,16 @@
+---
+import Layout from "../../../layouts/Layout.astro";
+import OffreCards from "../../../components/offreCards.astro";
+import { getOffresBySurface } from "../../../backend.mjs"
+
+const offres = await getOffresBySurface(80);
+---
+
+<Layout titre="Maisons supérieures à 80 m²">
+    <h1>Maisons supérieures à 80 m²</h1>
+    <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 justify-items-center"
+    >
+        {offres.map((offre: any) => <OffreCards offre={offre} class="offre" />)}
+    </div>
+</Layout>

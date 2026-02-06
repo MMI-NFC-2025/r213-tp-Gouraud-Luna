@@ -25,3 +25,16 @@ export async function getOffre(id) {
 export async function getImageUrl(record, recordImage) {
     return db.files.getURL(record, recordImage);
 }
+
+export async function getOffresBySurface(Superficie) {
+    try {
+        const data = await db.collection('maison').getFullList({
+            filter: Superficie > 80,
+            sort: '-created',
+        });
+        return data;
+    } catch (error) {
+        console.log('Une erreur est survenue en lisant la liste des maisons', error);
+        return [];
+    }
+}

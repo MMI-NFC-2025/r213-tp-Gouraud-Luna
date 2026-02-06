@@ -5,13 +5,15 @@ import Hero from '../../components/hero.astro';
 import OffreCards from '../../components/offreCards.astro';
 import { getOffres } from '../../backend.mjs';
     const offres = await getOffres();
-  
-    
+   
 ---
 
 <Layout titre="Offres">
     <Hero H1="Offres" />
     <div class="p-8 bg-gray-50 min-h-screen">
+        <a href="../offres/surface/[id]surface.astro" class="inline-block">
+            Voir les maisons > 80 m2
+        </a>
         <button id="favori-button" class="mb-8 bg-gray-500 rounded-lg text-white px-6 py-3 font-semibold transition-colors">Afficher les favoris</button>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             { offres.map((offre) => (
