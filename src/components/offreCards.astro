@@ -9,17 +9,16 @@ import PbImage from "../components/PbImage.astro";
 
 <div class={`offreCards ${cardBaseClass} ${favoriClass}`} data-favori={favori ? "true" : "false"}>
     <!-- Image -->
-    <div class="w-full h-48 bg-gradient-to-t from-blue-400 to-blue-600 flex items-center justify-center">
+    <div class="w-full h-48 bg-linear-to-t from-blue-400 to-blue-600 flex items-center justify-center">
         <PbImage record={offre} recordImage={offre.Images} width={1000} height={600}/>
     </div>
     
     <!-- Contenu -->
-    <div class="p-5 flex flex-col flex-grow">
+    <div class="p-5 flex flex-col grow">
         <!-- Titre -->
         <h3 class="text-xl font-bold text-gray-800 mb-2">{offre.Nom}</h3>
         </div>
-        <a href={`/offres/${offre.id}`}>Voir plus</a>
-        <a href={`/Superficie/${Superficie.id}`}>Voir plus</a>
+        <a href={`/offres/${offre.id}`} class="px-5 py-4 bg-cyan-700 text-white font-semibold">Voir plus</a>
     </div>
 </div>
 

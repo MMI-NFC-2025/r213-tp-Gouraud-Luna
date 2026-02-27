@@ -1,4 +1,5 @@
 ---
+//@ts-nocheck
 import { getOffre } from '../../backend.mjs';
 import Layout from '../../layouts/Layout.astro';
 
@@ -6,8 +7,8 @@ const { id } = Astro.params;
 const offre = await getOffre(id);
 ---
 
-<Layout titre={offre.nomMaison}>
-    <h2>{offre.nomMaison}</h2>
+<Layout titre={offre.Nom}>
+    <h2>{offre.Nom}</h2>
     <ul>
         <li>Adresse: {offre.adresse}</li>
         <li>Prix: {offre.Prix} €</li>

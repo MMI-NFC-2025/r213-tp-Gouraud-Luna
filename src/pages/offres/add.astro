@@ -1,0 +1,25 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { addOffre } from '../../backend.mjs';
+import Hero from '../../components/hero.astro';
+let message = '';
+if (Astro.request.method === "POST") {
+    const formData = await Astro.request.formData();
+    const response = await addOffre(formData);
+    message = response.message;
+}
+---
+<Layout>
+    <Hero H1="Ajouter son offre immobilière" />
+    <h1 class="text-lg text-center py-4">Ajouter une offre</h1>
+    {message && <p class="text-green-600">{message}</p>}
+    <form action="/offres/add" method="POST" enctype="multipart/form-data">
+        <input type="text" name="Nom" placeholder="Nom de la maison" required class="w-full mt-2 p-2 border border-gray-300 rounded-md" />
+        <input type="number" name="Prix" placeholder="Prix"/>
+        <input type="number" name="nb_salle_de_bain" placeholder="Nombre de salles de bain"  />
+        <input type="number" name="nb_chambre" placeholder="Nombre de chambres"  />
+        <input type="number" name="Superficie" placeholder="Superficie"  />
+        <input type="file" name="Images"  />
+        <button type="submit">Ajouter</button>
+    </form>
+</Layout>
