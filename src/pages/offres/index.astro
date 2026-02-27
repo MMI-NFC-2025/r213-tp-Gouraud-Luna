@@ -3,24 +3,57 @@ import '../../styles/global.css'
 import Layout from '../../layouts/Layout.astro';
 import Hero from '../../components/hero.astro';
 import OffreCards from '../../components/offreCards.astro';
-import { getOffres } from '../../backend.mjs';
-    const offres = await getOffres();
+import { getOffres, filterByPrix } from '../../backend.mjs';
+import { coerce } from 'astro:schema';
    
+   let message = '';
+   let Offres = [];
+if (Astro.request.method === "POST") {
+    const data = await Astro.request.formData();
+    const minPrix = parseInt(data.get("minPrix"));
+    const maxPrix = parseInt(data.get("maxPrix"));
+
+    if (minPrix > 0 && maxPrix > 0 && maxPrix > minPrix) {
+        Offres = await filterByPrix(minPrix, maxPrix);
+        if (Offres.length === 0) {
+            message = `Pas d'offres entre ${minPrix}€ et ${maxPrix}€`;
+        } else {
+            message = `Liste des offres entre ${minPrix}€ et ${maxPrix}€`;
+        }
+    } else {
+        message = "Veuillez entrer des valeurs valides pour le prix.";
+    }
+} else {
+    Offres = await getOffres();
+}
 ---
 
 <Layout titre="Offres">
     <Hero H1="Offres" />
     <div class="p-8 bg-gray-50 min-h-screen">
-        <a href="../offres/surface/[id]surface.astro" class="inline-block mb-8 bg-cyan-700 py-3 px-6 text-white rounded-lg font-semibold">
+        <div class="py-5 ">
+            <form action="/offres" method="POST">
+            <input type="number" name="minPrix" placeholder="Prix minimum" class="bg-gray-200 rounded-lg px-3 py-2"/>
+            <input type="number" name="maxPrix" placeholder="Prix maximum" class="bg-gray-200 rounded-lg px-3 py-2"/>
+            <input type="submit" value="Filtrer par prix" class="bg-cyan-700 rounded-lg px-3 py-2 text-white font-semibold"/>
+            </form>
+            {message && <p class="text-cyan-600">{message}</p>}
+        </div>
+        <div>
+            <a href="/offres/add" class="inline-block mb-8 bg-cyan-700 py-3 px-6 text-white rounded-lg font-semibold">
+            Ajoutez une offre
+            </a>
+            <a href="../offres/surface/[id]surface.astro" class="inline-block mb-8 bg-gray-500 py-3 px-6 text-white rounded-lg font-semibold">
             Voir les maisons supérieur à 80 m2
-        </a>
-        <button id="favori-button" class="mb-8 bg-gray-500 rounded-lg text-white px-6 py-3 font-semibold transition-colors">Afficher les favoris</button>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            { offres.map((offre) => (
+            </a>
+            <button id="favori-button" class="mb-8 bg-gray-500 rounded-lg text-white px-6 py-3 font-semibold transition-colors">Afficher les favoris</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            { Offres.map((offre) => (
                 <div class="offre" data-favori={offre?.favori ? "true" : "false"}>
                     <OffreCards offre={offre} />
                 </div>
             ))}
+            </div>
         </div>
     </div>
 <script>
