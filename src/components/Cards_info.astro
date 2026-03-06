@@ -1,7 +1,5 @@
 ---
-import { getOffre } from "../backend.mjs";
 import PbImage from "./PbImage.astro";
-import Hero from "./hero.astro";
 const { offre } = Astro.props;
 const cardBaseClass = "offre-card rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-colors border";
 const favori = Boolean(offre?.favori);

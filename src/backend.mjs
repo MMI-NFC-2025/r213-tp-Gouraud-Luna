@@ -66,3 +66,13 @@ export async function filterByPrix(minPrix, maxPrix) {
         return [];
     }
 }
+
+export async function allAgent(){
+    try{
+        let Agents = await pb.collection('Agent').getFullList();
+        return Agents;
+    }catch(error){
+        console.error("error allAgent", error);
+        return null;
+    }
+}

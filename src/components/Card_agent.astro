@@ -1,0 +1,24 @@
+---
+import { allAgent } from "../backend.mjs";
+const agent = await allAgent();
+console.log(agent)
+
+---
+
+<div>
+    {
+    agent.map((Agent) => (
+    <div class="max-w-sm rounded overflow-hidden bg-linear-to-t from-blue-400 to-blue-600 m-5 text-white font-semibold px-2 py-2">
+        <ul>
+            <li>
+                {Agent.Prenom} {Agent.Nom}
+            </li>
+        </ul>
+        <a href="agent" class="text-gray-600">
+            voir plus
+        </a>
+         
+        </div>
+    ))
+    }
+</div>
