@@ -76,3 +76,13 @@ export async function allAgent(){
         return null;
     }
 }
+
+export async function OneAgent(id){
+    try{
+        let Agent = await pb.collection('Agent').getOne(id);
+        return Agent;
+    }catch(error){
+        console.error("error OneAgent", error);
+        return null;
+    }
+}

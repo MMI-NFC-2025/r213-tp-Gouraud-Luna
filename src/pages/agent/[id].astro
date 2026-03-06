@@ -1,29 +1,26 @@
 ---
-import { allAgent } from '../../backend.mjs';
+import { OneAgent } from '../../backend.mjs';
 import Layout from '../../layouts/Layout.astro';
 
 const { id } = Astro.params;
-const agent = await allAgent(id);
+const agent = await OneAgent(id);
 ---
 
 <Layout>
-    <div class="rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-colors border">
+    <div class="rounded-lg shadow-md overflow-hidden h-full flex flex-col transition-colors border px-5 py-3 mt-8">
     {
-    agent.map((Agent) => (
-    <div >
-        <ul>
-            <li>
-                {Agent.Prenom} {Agent.Nom}
-            </li>
-            <li>
-                {Agent.email}
-            </li>
-            <li>
-                
-            </li>
-        </ul>
+    agent && (
+        <div>
+            <ul>
+                <li>
+                    {agent.Prenom} {agent.Nom}
+                </li>
+                <li>
+                    adresse mail : {agent.email}
+                </li>
+            </ul>
         </div>
-    ))
+    )
     }
 </div>
 </Layout>
